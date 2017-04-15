@@ -39,7 +39,6 @@ class Machine
     @state_lists = [next_states(@init)]
     @strs = [str]
     @is = [pos]
-    l = str.length
     while !isMatch && @state_lists.size > 0 do
       @state_lists = step
     end
