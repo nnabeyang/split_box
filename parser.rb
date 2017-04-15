@@ -8,7 +8,7 @@ class Parser
   end
   def parse(src)
     src.each_line do|line|
-      line.chomp!
+      line.strip!
       a = line.split(',')
       @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("|")
       @n = [@n, a[2].to_i].max
