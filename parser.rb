@@ -21,6 +21,24 @@ class Parser
     end
     dict["1-#{@n}"]
   end
+  def dotfile
+     buf = ["digraph {"]
+    (1..@n).each do|i|
+      buf << var(i)
+    end
+    @dict.each do|k, v|
+      buf << relation(k, v) 
+    end
+    buf << "}"
+    buf.join("\n")
+  end
+  def var(i)
+    "s#{i} [label = \"#{i}\"]" 
+  end
+  def relation(k, v)
+    a = k.split("-")
+    "s#{a[0]} -> s#{a[1]} [label =\"#{v.gsub(' ', '␣').gsub('->','→').gsub('<-', '←')}\"];"
+  end
   def d(prev, i, j, k)
     a = [prev["#{i}-#{j}"], prev["#{j}-#{j}"], prev["#{j}-#{k}"]]
     if a.index(nil)
