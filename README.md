@@ -18,3 +18,11 @@ $./main.rb  resources/rich_and_poor.sb "010110 "
 ```bash
 ./main.rb  resources/sum.sb  " 111+010 "
 ```
+
+### 設計図の生成
+Graphvizがインストールされていて`dot`コマンドが使えるようになっていることが前提ですが、次のようにすると、`images`が作成され、そこにファイルに対応する設計図がpng形式で作成されます。
+
+```bash
+./main.rb -v <filepath1> <filepath2> ...
+```
+
