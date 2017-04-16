@@ -13,6 +13,8 @@ class Parser
       @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("|")
       @n = [@n, a[2].to_i].max
     end
+  end
+  def regex
     dict = @dict
     while @s <= @n
       dict = step(dict)
