@@ -18,7 +18,11 @@ $./main.rb  box/rich_and_poor.sb "010110 "
 ```bash
 ./main.rb  box/sum.sb  " 111+010 "
 ```
+### 文字列のコピー 
 
+```bash
+./main.rb  box/copy.sb  " 101|   "
+```
 ### 設計図の生成
 Graphvizがインストールされていて`dot`コマンドが使えるようになっていることが前提ですが、次のようにすると、`images`が作成され、そこにファイルに対応する設計図がpng形式で作成されます。
 
