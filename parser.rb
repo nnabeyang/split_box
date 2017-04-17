@@ -8,12 +8,15 @@ class Parser
   end
   def parse(src)
     src.each_line do|line|
-      line.strip!
-      idx = line.index('->') || line.index('<-')
-      a = [line[0...(idx-3)], line[idx-2, 4], line[(idx + 3)..-1]]
+      a = parse_instruction(line)
       @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("\\|")
       @n = [@n, a[2].to_i].max
     end
+  end
+  def parse_instruction(line)
+      line.strip!
+      idx = line.index('->') || line.index('<-')
+      [line[0...(idx-3)], line[idx-2, 4], line[(idx + 3)..-1]]
   end
   def regex
     dict = @dict
