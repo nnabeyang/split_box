@@ -9,7 +9,8 @@ class Parser
   def parse(src)
     src.each_line do|line|
       line.strip!
-      a = line.split(',')
+      idx = line.index('->') || line.index('<-')
+      a = [line[0...(idx-3)], line[idx-2, 4], line[(idx + 3)..-1]]
       @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("\\|")
       @n = [@n, a[2].to_i].max
     end
