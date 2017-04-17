@@ -10,7 +10,7 @@ class Parser
     src.each_line do|line|
       line.strip!
       a = line.split(',')
-      @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("|")
+      @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("\\|")
       @n = [@n, a[2].to_i].max
     end
   end
@@ -55,10 +55,10 @@ class Parser
     end
   end
   def paren(v)
-    (!v || v == "")? nil : "(#{v})"
+    (!v || v == "")? nil : "\\(#{v}\\)"
   end
   def star(v)
-    (v)? "#{v}*" : nil
+    (v)? "#{v}\\*" : nil
   end
   def step(prev)
     dict = {}

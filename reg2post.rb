@@ -8,39 +8,39 @@ def reg2post(reg)
   l = reg.length
   k = 0
   while k < l do
-    c = reg[k]
+    c = reg[k, 2]
     case c
-    when '|'
+    when "\\|"
       i-=1
       if i == 1
-        buf << "."
+        buf << "\\."
         i-=1
       end
       j+=1
-      k+=1
-    when '('
+      k+=2
+    when "\\("
       if i > 1
-        buf << "."
+        buf << "\\."
         i-=1
       end
       parens << {i: i, j: j}
       i = 0
       j = 0
-      k+=1
-    when ')'
-      buf << "." if i > 1
-      buf << ("|" * j)
+      k+=2
+    when "\\)"
+      buf << "\\." if i > 1
+      buf << ("\\|" * j)
       paren = parens.pop
       i = paren[:i]
       j = paren[:j]
       i+=1 
-      k+=1
-    when '*'
-      buf << '*'
-      k+=1
+      k+=2
+    when "\\*"
+      buf << "\\*"
+      k+=2
     else
       if i > 1
-        buf << '.'
+        buf << "\\."
         i-=1 
       end
       buf << reg[k, 4]
@@ -48,8 +48,8 @@ def reg2post(reg)
       i+=1
     end
   end
-  buf << '.' if i > 1
-  buf << ('|' * j)
+  buf << "\\." if i > 1
+  buf << ("\\|" * j)
   buf.join 
 end
 
