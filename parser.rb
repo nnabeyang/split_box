@@ -48,7 +48,7 @@ class Parser
      if a.size == 0
        nil
      elsif a.size == 2 
-      "(#{a.join('|')})"
+      paren(a.join("\\|"))
      elsif a.size == 1
        a[0]
      end
