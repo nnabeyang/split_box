@@ -11,7 +11,7 @@ $./main.rb  box/rich_and_poor.sb "010110 "
 ### 文字列の比較
 
 ```bash
-./main.rb  box/str_cmp.sb " 101-101 "
+./main.rb  box/str_cmp.sb " 101|101 "
 ```
 ### 足し算
 
