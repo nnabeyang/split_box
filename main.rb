@@ -24,11 +24,11 @@ def write_graphs
     write_graph(p, path)
   end
 end
-def write_graph(p, path)
-    p.parse(IO.read(path))
+def write_graph(parser, path)
+    parser.parse(IO.read(path))
     fn = File.basename(path, '.sb')
     IO.popen("dot -Tpng -o ./images/#{fn}.png", "r+") do|io|
-      io.puts p.dotfile
+      io.puts parser.dotfile
       io.close_write
     end 
 end
