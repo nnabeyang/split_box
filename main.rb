@@ -7,7 +7,7 @@ def main
  p = Parser.new
   if ARGV[0] == "-v"
     ARGV.shift
-    white_graphs
+    write_graphs
   else
     src = open(ARGV[0]).read
     p.parse(src)
@@ -17,7 +17,7 @@ def main
     puts m.exec(ARGV[1]).inspect
   end
 end
-def white_graphs 
+def write_graphs 
   Dir.mkdir('./images') unless Dir.exist?("./images")
   ARGV.each do|path|
     p = Parser.new
