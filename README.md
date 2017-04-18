@@ -30,3 +30,19 @@ Graphvizがインストールされていて`dot`コマンドが使えるよう�
 ./main.rb -v <filepath1> <filepath2> ...
 ```
 
+### コードの書き方
+
+`split_box`が認識する言語は、命令(instruction)の列から成ります。1行1命令ですので、命令を追加するときは改行します。
+
+```
+<instruction1>
+<instruction2>
+<instruction3>
+...
+```
+
+各命令はrubyの正規表現で書くと次のパターンに従っているものとします。
+
+```ruby
+instruction_pattern = /#{sprintf "%{from_address}.%{input_char}%{replacement}%{direction_of_pointer}.%{to_address}", from_address: "\d+", input_char: ".", replacement: ".", direction_of_pointer: "(<-|->)", to_address: "\d+"}/
+```
