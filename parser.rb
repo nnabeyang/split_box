@@ -7,6 +7,8 @@ class Parser
     @s = 2 
   end
   def parse(src)
+    @dict = {}
+    @n = 1
     src.each_line do|line|
       a = parse_instruction(line)
       @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("\\|")
