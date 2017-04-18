@@ -21,13 +21,15 @@ def write_graphs
   Dir.mkdir('./images') unless Dir.exist?("./images")
   p = Parser.new
   ARGV.each do|path|
+    write_graph(p, path)
+  end
+end
+def write_graph(p, path)
     p.parse(IO.read(path))
     fn = File.basename(path, '.sb')
     IO.popen("dot -Tpng -o ./images/#{fn}.png", "r+") do|io|
       io.puts p.dotfile
       io.close_write
     end 
-  end
 end
-
 main
