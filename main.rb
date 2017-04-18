@@ -19,8 +19,8 @@ def main
 end
 def write_graphs 
   Dir.mkdir('./images') unless Dir.exist?("./images")
+  p = Parser.new
   ARGV.each do|path|
-    p = Parser.new
     p.parse(IO.read(path))
     fn = File.basename(path, '.sb')
     IO.popen("dot -Tpng -o ./images/#{fn}.png", "r+") do|io|
