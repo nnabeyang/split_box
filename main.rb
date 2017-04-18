@@ -23,9 +23,10 @@ def white_graphs
     p = Parser.new
     p.parse(open(path).read)
     fn = File.basename(path, '.sb')
-    io = IO.popen("dot -Tpng -o ./images/#{fn}.png", "r+")
+    IO.popen("dot -Tpng -o ./images/#{fn}.png", "r+") do|io|
     io.puts p.dotfile
     io.close_write
+    end 
   end
 end
 
