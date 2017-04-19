@@ -95,19 +95,21 @@ class StateList
 end
 
 class State
-  attr_reader :b, :steps, :type, :a
+  attr_reader :b, :steps, :type, :a, :id
   attr_accessor :out1, :out2
+  @@count = 0
   def initialize(type, b, a, steps)
     @type = type
     @b = b
     @a = a
     @steps = steps
+    @id = @@count+=1 
   end
   def inspect
-    "S(#{@type}, #{@b.inspect}, #{@a.inspect}, #{@steps})"
+    "S(#{@id}, #{@type}, #{@b.inspect}, #{@a.inspect}, #{@steps})"
   end
   def to_s
-    "S(#{@type},#{@b},#{@a}, #{@steps})"
+    "S(#{@id}, #{@type},#{@b},#{@a}, #{@steps})"
   end
   def exec(i, str)
     str[i] = @a
