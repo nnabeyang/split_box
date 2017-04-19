@@ -11,6 +11,9 @@ def main
   elsif ARGV[0] == "-d"
    ARGV.shift
    write_internal_states_graph(p)
+  elsif ARGV[0] == "-r"
+   ARGV.shift
+   print_regex(p)
   else
     src = open(ARGV[0]).read
     p.parse(src)
@@ -43,5 +46,9 @@ def write_internal_states_graph(p)
    IO.popen("dot -Tpng -o ./images/#{fn}_inter.png", "r+") do|io|
      io.puts dotfile(s)
    end
+end
+def print_regex(p)
+  p.parse(IO.read(ARGV[0]))
+  puts p.regex.gsub("\\","")
 end
 main
