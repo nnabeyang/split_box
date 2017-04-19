@@ -8,6 +8,9 @@ def main
   if ARGV[0] == "-v"
     ARGV.shift
     write_graphs
+  elsif ARGV[0] == "-d"
+   ARGV.shift
+   write_internal_states_graph(p)
   else
     src = open(ARGV[0]).read
     p.parse(src)
@@ -30,5 +33,15 @@ def write_graph(parser, path)
     IO.popen("dot -Tpng -o ./images/#{fn}.png", "r+") do|io|
       io.puts parser.dotfile
     end 
+end
+def write_internal_states_graph(p)
+  Dir.mkdir('./images') unless Dir.exist?("./images")
+  p.parse(IO.read(ARGV[0]))
+  post = reg2post(p.regex)
+   s = compile(post)
+   fn = File.basename(ARGV[0], '.sb')
+   IO.popen("dot -Tpng -o ./images/#{fn}_inter.png", "r+") do|io|
+     io.puts dotfile(s)
+   end
 end
 main
