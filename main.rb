@@ -15,8 +15,7 @@ def main
    ARGV.shift
    print_regex(p)
   else
-    src = IO.read(ARGV[0])
-    p.parse(src)
+    p.parse(IO.read(ARGV[0]))
     post = reg2post(p.regex)
     s = compile(post)
     m = Machine.new(s)
