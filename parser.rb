@@ -47,7 +47,7 @@ class Parser
   end
   def d(prev, i, j, k)
     a = [prev["#{i}-#{j}"], prev["#{j}-#{j}"], prev["#{j}-#{k}"]]
-    if !prev["#{j}-#{k}"]
+    if (!prev["#{j}-#{k}"] || !prev["#{i}-#{j}"])
       prev["#{i}-#{k}"]
     else
      a = [paren("#{a[0]}#{star(paren(a[1]))}#{paren(a[2])}"), paren(prev["#{i}-#{k}"])].compact
