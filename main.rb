@@ -15,7 +15,7 @@ def main
    ARGV.shift
    print_regex(p)
   else
-    src = open(ARGV[0]).read
+    src = IO.read(ARGV[0])
     p.parse(src)
     post = reg2post(p.regex)
     s = compile(post)
