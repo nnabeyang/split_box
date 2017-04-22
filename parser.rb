@@ -14,6 +14,7 @@ class Parser
       @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("\\|")
       @n = [@n, a[2].to_i].max
     end
+    self
   end
   def parse_instruction(line)
       line.strip!
