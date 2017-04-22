@@ -23,6 +23,7 @@ class Parser
   end
   def regex
     dict = @dict
+    @s = 2
     while @s <= @n
       dict = step(dict)
     end
