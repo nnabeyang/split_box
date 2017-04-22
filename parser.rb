@@ -17,7 +17,7 @@ class Parser
   end
   def parse_instruction(line)
       line.strip!
-      idx = line.index('->') || line.index('<-')
+      idx = [line.rindex('->'),line.rindex('<-')].compact.max
       [line[0...(idx-3)], line[idx-2, 4], line[(idx + 3)..-1]]
   end
   def regex
