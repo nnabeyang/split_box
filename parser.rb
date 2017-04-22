@@ -10,9 +10,11 @@ class Parser
     @dict = {}
     @n = 1
     src.each_line do|line|
-      a = parse_instruction(line)
-      @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("\\|")
-      @n = [@n, a[2].to_i].max
+      unless !is_comment line
+        a = parse_instruction(line)
+        @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1] ].compact.join("\\|")
+        @n = [@n, a[2].to_i].max
+      end
     end
     self
   end
@@ -20,6 +22,9 @@ class Parser
       line.strip!
       idx = [line.rindex('->'),line.rindex('<-')].compact.max
       [line[0...(idx-3)], line[idx-2, 4], line[(idx + 3)..-1]]
+  end
+  def is_comment(line)
+    !!line.match(/\A\d+/)
   end
   def regex
     dict = @dict
