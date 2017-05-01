@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
-require './parser.rb'
-require 'minitest/autorun'
+require 'test_helper'
 
 class ParserTest < MiniTest::Test
   def test_comment

@@ -1,10 +1,10 @@
-#coding:UTF-8
-require 'rake/testtask'
+require "bundler/gem_tasks"
+require "rake/testtask"
 
-task default: [:test]
-
-Rake::TestTask.new do|test|
-  test.libs << 'test'
-  test.test_files = Dir['test/test_*.rb']
-  test.verbose = true
+Rake::TestTask.new(:test) do |t|
+  t.libs << "test"
+  t.libs << "lib"
+  t.test_files = FileList['test/**/*_test.rb']
 end
+
+task :default => :test

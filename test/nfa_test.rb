@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
-require './nfa.rb'
-require 'minitest/autorun'
+require 'test_helper'
 
 class MainTest < MiniTest::Test
   def test_default

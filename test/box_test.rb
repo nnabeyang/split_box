@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
-require './parser.rb'
-require './reg2post.rb'
-require './nfa.rb'
-require 'minitest/autorun'
-
+require 'test_helper'
 class BoxTest < MiniTest::Test
   def create_machine(path)
     p = Parser.new

@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
-require './parser.rb'
-require './reg2post.rb'
-require './nfa.rb'
-
+require "bundler/setup"
+require 'split_box'
 def main
  p = Parser.new
   if ARGV[0] == "-v"
