@@ -4,7 +4,7 @@ class BoxTest < MiniTest::Test
   def create_machine(path)
     p = Parser.new
     p.parse(IO.read(path))
-    s = compile(reg2post(p.regex))
+    s = compile(p.postfix)
     m = Machine.new(s)
   end
   def inp_str(i)

@@ -14,8 +14,7 @@ def main
    print_regex(p)
   else
     p.parse(IO.read(ARGV[0]))
-    post = reg2post(p.regex)
-    s = compile(post)
+    s = compile(p.postfix)
     m = Machine.new(s)
     puts m.exec(ARGV[1]).inspect
   end

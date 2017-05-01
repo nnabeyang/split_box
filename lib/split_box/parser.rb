@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require "split_box/reg2post"
 class Parser
   attr_reader :dict
   def initialize
@@ -33,6 +34,9 @@ class Parser
       dict = step(dict)
     end
     dict["1-#{@n}"]
+  end
+  def postfix
+   reg2post(regex) 
   end
   def dotfile
      buf = ["digraph {"]
@@ -103,4 +107,3 @@ class Parser
     dict
   end
 end
-
