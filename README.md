@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/nnabeyang/split_box.svg?branch=master)](https://travis-ci.org/nnabeyang/split_box)
 『精霊の箱[上](https://www.amazon.co.jp/dp/4130633635)[下](https://www.amazon.co.jp/dp/4130633643)』に登場する「塔文字」の言語処理系のruby実装です。いくつかサンプルも`box`ディレクトリに置いております。
 
 ## 実行方法
