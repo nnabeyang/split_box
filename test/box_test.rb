@@ -3,7 +3,7 @@ require 'test_helper'
 class BoxTest < MiniTest::Test
   def create_machine(path)
     p = Parser.new
-    p.parse(open(path).read)
+    p.parse(IO.read(path))
     s = compile(reg2post(p.regex))
     m = Machine.new(s)
   end
