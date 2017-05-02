@@ -14,9 +14,7 @@ def main
    ARGV.shift
    print_regex(p)
   else
-    p.parse(IO.read(ARGV[0]))
-    s = SplitBox::compile(p.postfix)
-    m = Machine.new(s)
+    m = SplitBox::build_machine(IO.read(ARGV[0]))
     puts m.exec(ARGV[1]).inspect
   end
 end

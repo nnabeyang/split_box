@@ -2,10 +2,7 @@
 require 'test_helper'
 class BoxTest < MiniTest::Test
   def create_machine(path)
-    p = Parser.new
-    p.parse(IO.read(path))
-    s = SplitBox::compile(p.postfix)
-    m = Machine.new(s)
+   SplitBox::build_machine(IO.read(path))
   end
   def inp_str(i)
       (("0" * 6) + i.to_s(2) + " ")[-7..-1]

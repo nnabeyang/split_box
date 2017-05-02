@@ -3,6 +3,11 @@ require "split_box/parser"
 require "split_box/nfa"
 module SplitBox
   class << self
+  def build_machine(source)
+    p = Parser.new
+    p.parse(source)
+    Machine.new(SplitBox::compile(p.postfix))
+  end
   def compile(source)
     stack = []
     l = source.length
