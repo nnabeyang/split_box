@@ -6,7 +6,7 @@ module SplitBox
   def build_machine(source)
     p = SplitBox::Parser.new
     p.parse(source)
-    Machine.new(SplitBox::compile(p.postfix))
+    SplitBox::Machine.new(SplitBox::compile(p.postfix))
   end
   def compile(source)
     stack = []
@@ -17,33 +17,33 @@ module SplitBox
       case c
       when '\\*'
         e = stack.pop
-        s = State.new(:split, nil, nil, nil)
+        s = SplitBox::State.new(:split, nil, nil, nil)
         s.out2 = e.start
         e.patch(s)
-        stack.push(Frag.new(s, StateList.new(s)))
+        stack.push(SplitBox::Frag.new(s, SplitBox::StateList.new(s)))
         i+=2
       when '\\.'
         e2 = stack.pop
         e1 = stack.pop
         e1.patch(e2.start)
-        stack.push(Frag.new(e1.start, e2.out))
+        stack.push(SplitBox::Frag.new(e1.start, e2.out))
         i+=2
       when '\\|'
         e2 = stack.pop
         e1 = stack.pop
-        s = State.new(:split, nil, nil, nil)
+        s = SplitBox::State.new(:split, nil, nil, nil)
         s.out2 = e1.start
         s.out1 = e2.start
-        stack.push(Frag.new(s, e1.out.append(e2.out)))
+        stack.push(SplitBox::Frag.new(s, e1.out.append(e2.out)))
         i+=2
       else
-        s = State.new(:value, source[i, 1], source[i + 1, 1], ('->' == source[i + 2, 2])? 1 : -1)
+        s = SplitBox::State.new(:value, source[i, 1], source[i + 1, 1], ('->' == source[i + 2, 2])? 1 : -1)
         i+= 4
-        stack.push(Frag.new(s, StateList.new(s)))
+        stack.push(SplitBox::Frag.new(s, SplitBox::StateList.new(s)))
       end
     end
     e = stack.pop
-    e.patch(State.new(:end, nil, nil, nil))
+    e.patch(SplitBox::State.new(:end, nil, nil, nil))
     e.start
   end
 end

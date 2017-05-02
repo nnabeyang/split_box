@@ -1,3 +1,4 @@
+module SplitBox
 class Machine
   def initialize(state)
     @init  = state
@@ -114,4 +115,5 @@ class State
   def exec(i, str)
     str[i] = @a
   end
+end
 end
