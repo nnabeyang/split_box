@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require "bundler/setup"
 require 'split_box'
+require 'split_box/dotfile'
 def main
  p = Parser.new
   if ARGV[0] == "-v"
@@ -39,7 +40,7 @@ def write_internal_states_graph(p)
    s = SplitBox::compile(p.postfix)
    fn = File.basename(ARGV[0], '.sb')
    IO.popen("dot -Tpng -o ./images/#{fn}_inter.png", "r+") do|io|
-     io.puts dotfile(s)
+     io.puts SplitBox::dotfile(s)
    end
 end
 def print_regex(p)
