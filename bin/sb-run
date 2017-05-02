@@ -1,48 +1,52 @@
 #!/usr/bin/env ruby
-require "bundler/setup"
+require 'bundler/setup'
 require 'split_box'
 require 'split_box/dotfile'
 def main
- p = SplitBox::Parser.new
-  if ARGV[0] == "-v"
+  p = SplitBox::Parser.new
+  if ARGV[0] == '-v'
     ARGV.shift
     write_graphs
-  elsif ARGV[0] == "-d"
-   ARGV.shift
-   write_internal_states_graph(p)
-  elsif ARGV[0] == "-r"
-   ARGV.shift
-   print_regex(p)
+  elsif ARGV[0] == '-d'
+    ARGV.shift
+    write_internal_states_graph(p)
+  elsif ARGV[0] == '-r'
+    ARGV.shift
+    print_regex(p)
   else
-    m = SplitBox::build_machine(IO.read(ARGV[0]))
+    m = SplitBox.build_machine(IO.read(ARGV[0]))
     puts m.exec(ARGV[1]).inspect
   end
 end
-def write_graphs 
-  Dir.mkdir('./images') unless Dir.exist?("./images")
+
+def write_graphs
+  Dir.mkdir('./images') unless Dir.exist?('./images')
   p = SplitBox::Parser.new
-  ARGV.each do|path|
+  ARGV.each do |path|
     write_graph(p, path)
   end
 end
+
 def write_graph(parser, path)
-    parser.parse(IO.read(path))
-    fn = File.basename(path, '.sb')
-    IO.popen("dot -Tpng -o ./images/#{fn}.png", "r+") do|io|
-      io.puts parser.dotfile
-    end 
+  parser.parse(IO.read(path))
+  fn = File.basename(path, '.sb')
+  IO.popen("dot -Tpng -o ./images/#{fn}.png", 'r+') do |io|
+    io.puts parser.dotfile
+  end
 end
+
 def write_internal_states_graph(p)
-  Dir.mkdir('./images') unless Dir.exist?("./images")
+  Dir.mkdir('./images') unless Dir.exist?('./images')
   p.parse(IO.read(ARGV[0]))
-   s = SplitBox::compile(p.postfix)
-   fn = File.basename(ARGV[0], '.sb')
-   IO.popen("dot -Tpng -o ./images/#{fn}_inter.png", "r+") do|io|
-     io.puts SplitBox::dotfile(s)
-   end
+  s = SplitBox.compile(p.postfix)
+  fn = File.basename(ARGV[0], '.sb')
+  IO.popen("dot -Tpng -o ./images/#{fn}_inter.png", 'r+') do |io|
+    io.puts SplitBox.dotfile(s)
+  end
 end
+
 def print_regex(p)
   p.parse(IO.read(ARGV[0]))
-  puts p.regex.gsub("\\","")
+  puts p.regex.delete('\\')
 end
 main
