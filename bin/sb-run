@@ -14,7 +14,7 @@ def main
    print_regex(p)
   else
     p.parse(IO.read(ARGV[0]))
-    s = compile(p.postfix)
+    s = SplitBox::compile(p.postfix)
     m = Machine.new(s)
     puts m.exec(ARGV[1]).inspect
   end
@@ -36,7 +36,7 @@ end
 def write_internal_states_graph(p)
   Dir.mkdir('./images') unless Dir.exist?("./images")
   p.parse(IO.read(ARGV[0]))
-   s = compile(p.postfix)
+   s = SplitBox::compile(p.postfix)
    fn = File.basename(ARGV[0], '.sb')
    IO.popen("dot -Tpng -o ./images/#{fn}_inter.png", "r+") do|io|
      io.puts dotfile(s)

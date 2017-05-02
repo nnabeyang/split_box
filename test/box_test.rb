@@ -4,7 +4,7 @@ class BoxTest < MiniTest::Test
   def create_machine(path)
     p = Parser.new
     p.parse(IO.read(path))
-    s = compile(p.postfix)
+    s = SplitBox::compile(p.postfix)
     m = Machine.new(s)
   end
   def inp_str(i)
