@@ -36,7 +36,7 @@ class Parser
     dict["1-#{@n}"]
   end
   def postfix
-   reg2post(regex) 
+   SplitBox::reg2post(regex) 
   end
   def dotfile
      buf = ["digraph {"]

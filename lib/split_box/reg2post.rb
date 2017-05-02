@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
-
+module SplitBox
+class << self
 def reg2post(reg)
-  buf = [] 
+  buf = []
   parens = []
-  i = 0 # 結合待ちのオペレータの数 
+  i = 0 # 結合待ちのオペレータの数
   j = 0 # number of "|"
   l = reg.length
   k = 0
@@ -33,7 +34,7 @@ def reg2post(reg)
       paren = parens.pop
       i = paren[:i]
       j = paren[:j]
-      i+=1 
+      i+=1
       k+=2
     when "\\*"
       buf << "\\*"
@@ -41,16 +42,16 @@ def reg2post(reg)
     else
       if i > 1
         buf << "\\."
-        i-=1 
+        i-=1
       end
       buf << reg[k, 4]
-      k+=4  
+      k+=4
       i+=1
     end
   end
   buf << "\\." if i > 1
   buf << ("\\|" * j)
-  buf.join 
+  buf.join
 end
-
-
+end
+end
