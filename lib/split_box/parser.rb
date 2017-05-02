@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require "split_box/reg2post"
+module SplitBox
 class Parser
   attr_reader :dict
   def initialize
@@ -106,4 +107,5 @@ class Parser
     end
     dict
   end
+end
 end

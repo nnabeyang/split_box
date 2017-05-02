@@ -3,7 +3,7 @@ require "bundler/setup"
 require 'split_box'
 require 'split_box/dotfile'
 def main
- p = Parser.new
+ p = SplitBox::Parser.new
   if ARGV[0] == "-v"
     ARGV.shift
     write_graphs
@@ -20,7 +20,7 @@ def main
 end
 def write_graphs 
   Dir.mkdir('./images') unless Dir.exist?("./images")
-  p = Parser.new
+  p = SplitBox::Parser.new
   ARGV.each do|path|
     write_graph(p, path)
   end
