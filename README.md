@@ -2,6 +2,12 @@
 
 『精霊の箱[上](https://www.amazon.co.jp/dp/4130633635)[下](https://www.amazon.co.jp/dp/4130633643)』に登場する「塔文字」の言語処理系のruby実装です。いくつかサンプルも`box`ディレクトリに置いております。
 
+## インストール
+`Gemfile`に次の記述を追加して`bundle install`すればインストールできます。
+```ruby
+gem 'split_box', github: 'nnabeyang/split_box'
+```
+
 ## 実行方法
 `git clone`するかダウンロードして、`main.rb`を以下のようにして実行することができます。
 
@@ -20,7 +26,7 @@ $./main.rb  box/rich_and_poor.sb "010110 "
 ```bash
 ./main.rb  box/sum.sb  " 111+010 "
 ```
-### 文字列のコピー 
+### 文字列のコピー
 
 ```bash
 ./main.rb  box/copy.sb  " 101|   "
