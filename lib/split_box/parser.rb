@@ -10,7 +10,7 @@ module SplitBox
     end
 
     def key_name(from, to)
-        "#{from}-#{to}"
+        "#{from}->#{to}"
     end
     
     def parse(src)
