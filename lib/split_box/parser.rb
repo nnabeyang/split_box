@@ -9,13 +9,17 @@ module SplitBox
       @s = 2
     end
 
+    def key_name(from, to)
+        "#{from}-#{to}"
+    end
+    
     def parse(src)
       @dict = {}
       @n = 1
       src.each_line do |line|
         next unless is_comment line
         a = parse_instruction(line)
-        @dict["#{a[0]}-#{a[2]}"] = [@dict["#{a[0]}-#{a[2]}"], a[1]].compact.join('\\|')
+        @dict[key_name(a[0], a[2])] = [@dict[key_name(a[0], a[2])], a[1]].compact.join('\\|')
         @n = [@n, a[2].to_i].max
       end
       self
@@ -35,7 +39,7 @@ module SplitBox
       dict = @dict
       @s = 2
       dict = step(dict) while @s <= @n
-      dict["1-#{@n}"]
+      dict[key_name(1, @n)]
     end
 
     def postfix
@@ -64,11 +68,11 @@ module SplitBox
     end
 
     def d(prev, i, j, k)
-      a = [prev["#{i}-#{j}"], prev["#{j}-#{j}"], prev["#{j}-#{k}"]]
-      if !prev["#{j}-#{k}"] || !prev["#{i}-#{j}"]
-        prev["#{i}-#{k}"]
+      a = [prev[key_name(i, j)], prev[key_name(j, j)], prev[key_name(j, k)]]
+      if !prev[key_name(j, k)] || !prev[key_name(i, j)]
+        prev[key_name(i, k)]
       else
-        a = [paren("#{a[0]}#{star(paren(a[1]))}#{paren(a[2])}"), paren(prev["#{i}-#{k}"])].compact
+        a = [paren("#{a[0]}#{star(paren(a[1]))}#{paren(a[2])}"), paren(prev[key_name(i, k)])].compact
         if a.empty?
           nil
         elsif a.size == 2
@@ -90,27 +94,28 @@ module SplitBox
     def step(prev)
       dict = {}
       if @s == @n
-        dict["1-#{@n}"] = prev['1-1'] ? "#{star(paren(prev['1-1']))}#{paren(prev["1-#{@n}"])}" : prev["1-#{@n}"]
+        dict[key_name(1, @n)] = prev[key_name(1, 1)] ? "#{star(paren(prev[key_name(1, 1)]))}#{paren(prev[key_name(1, @n)])}"
+                                                     : prev[key_name(1, @n)]
         @s += 1
       else
-        dict['1-1'] = d(prev, 1, @s, 1)
+        dict[key_name(1, 1)] = d(prev, 1, @s, 1)
         ((@s + 1)..@n).each do |k|
           if v = d(prev, 1, @s, k)
-            dict["1-#{k}"] = v
+            dict[key_name(1, k)] = v
           end
           if k < @n && (v = d(prev, k, @s, 1))
-            dict["#{k}-1"] = v
+            dict[key_name(k, 1)] = v
           end
         end
         ((@s + 1)...@n).each do |i|
           ((@s + 1)..@n).each do |k|
             if v = d(prev, i, @s, k)
-              dict["#{i}-#{k}"] = v
+              dict[key_name(i, k)] = v
             end
           end
         end
         if v = d(prev, @n, @s, @n)
-          dict["#{@n}-#{@n}"] = v
+          dict[key_name(@n, @n)] = v
         end
         @s += 1
       end
